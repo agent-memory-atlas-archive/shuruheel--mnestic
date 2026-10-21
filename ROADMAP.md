@@ -18,6 +18,25 @@ long-lived local or embedded memory. Its defining combination is:
 
 Every new feature must fit that agentic-memory wedge as a general engine mechanism.
 
+### Beyond recall — strategic clarification, September 7, 2026
+
+Long-lived applications also need to revise evidence, track changing work and
+coordinate participants. Mnestic's role is to make general storage, history,
+transactions, recursive queries and bounded retrieval dependable for those uses.
+Application ontologies, hypotheses, projects/tasks, approvals and model-curation
+policies belong in consumers such as MindGraph, not inside the engine.
+
+Prefer verified use of existing primitives to new mechanisms. Bring a minimal,
+domain-neutral reproducer and explicit correctness/resource bounds when a real
+workflow exposes a gap. Keep engine correctness and resource measurements separate
+from end-to-end reasoning, collaboration or token-saving claims. Markdown-backed
+applications remain legitimate alternatives; an engine feature alone does not
+establish their inferiority.
+
+This clarification creates no new release commitment or benchmark campaign. The
+maintenance priorities, 0.19 selection rules and demand gates below are unchanged;
+release/issue descriptions retain their September 6 reconciliation date.
+
 ## Current state
 
 - `mnestic` 0.18.0 and `mnestic-rocks` 0.1.12 are the latest published releases.
