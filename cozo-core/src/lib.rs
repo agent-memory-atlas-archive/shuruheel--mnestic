@@ -41,6 +41,10 @@
 #![allow(clippy::unnecessary_unwrap)] // inherited query-compile patterns
 #![allow(clippy::missing_transmute_annotations)] // documented intentional lifetime casts (e.g. sqlite stmt)
 #![allow(clippy::manual_is_multiple_of)] // `is_multiple_of` needs Rust 1.87; our MSRV is 1.85
+// miette 5's `bail!` expands with a trailing `;`, which newer rustc reports under
+// this future-incompat lint at every `=> bail!(..)` arm (~290 sites). The real fix
+// is miette 7; `unknown_lints` keeps toolchains that predate the lint warning-free.
+#![allow(unknown_lints, semicolon_in_expressions_from_non_local_macros)]
 
 use std::collections::BTreeMap;
 use std::path::Path;
