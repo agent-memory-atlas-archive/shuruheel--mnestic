@@ -80,11 +80,24 @@ September 6 establishes current status; it does not select a final feature scope
 | Work | State | Gate |
 |---|---|---|
 | Remove temporary `parser.string_decoding_changed` warning | Scheduled for 0.19.0 | Keep the migration guidance after removing the diagnostic |
+| Remeasure the public hybrid-recall benchmark on 0.18 | Selected October 27 — measurement | Published numbers are from May on an older build; refresh `RESULTS.md` from the current build, add a filtered-query workload (type-restricted vector plus FTS) and a read-your-writes latency column |
+| Filtered vector search for selective predicates | Selected October 27 — investigation | Evidence: a consumer's type-restricted vector query over a rare type returned nothing because it post-filters a global ANN prefix. Verify and measure the inherited HNSW `filter:` path on the new workload first; add `candidates:` on HNSW (mirroring 0.17's candidate-aware FTS) only if the filter path cannot meet a bounded-widening contract with resource bounds |
+| Parse/plan cost of large vector literals and repeated query text | Selected October 27 — measurement | Consumers splice 1,000-plus-float vectors into script text per request; parameter-binding guidance first, a plan cache only on a measured high-frequency workload (existing gate) |
 | [HNSW integrity #56](https://github.com/shuruheel/mnestic/issues/56) | Proposed first investigation | Failure fixtures and verified invariants before a read-only verifier; reproduce a current failure before committing repair |
-| [Temporary-relation diagnostics #12](https://github.com/shuruheel/mnestic/issues/12) | Proposed maintenance candidate | Agree warning behavior and preserve legitimate transaction-scoped relations |
-| [SQLite WITHOUT ROWID #6](https://github.com/shuruheel/mnestic/issues/6) | Conditional benchmark candidate | Demonstrate benefit across representative row sizes and workloads; preserve existing databases |
+| [Temporary-relation diagnostics #12](https://github.com/shuruheel/mnestic/issues/12) | Deferred behind the items above | Agree warning behavior and preserve legitimate transaction-scoped relations |
+| [SQLite WITHOUT ROWID #6](https://github.com/shuruheel/mnestic/issues/6) | Deferred behind the items above | Demonstrate benefit across representative row sizes and workloads; preserve existing databases |
 
 Broader HNSW, Arrow export and quantization work remains subject to the evidence gates below.
+
+### Measurement first — October 27, 2026
+
+The next engine work is small and measurement-led. Consumers building retrieval on mnestic
+report end-to-end latencies an order of magnitude above the engine's measured fused
+hybrid-recall time, so the engine is not the bottleneck today and does not earn a feature
+release on that basis. Three items are selected above: a fresh benchmark on the current
+build, a bounded investigation of filtered vector search, and a measurement of vector-literal
+parse cost. Storage-layout and ergonomics proposals (#6, #8, #10, #11, #12, #19, #20, #57)
+keep their demand gates and sit behind those three. Scope boundaries below are unchanged.
 
 [Arrow export #11](https://github.com/shuruheel/mnestic/issues/11) tracks the unimplemented,
 demand-gated export work. Its import half shipped in 0.17.0 and is retained as completed history.
